@@ -36,3 +36,7 @@ Windows
 ```cmd
 php .\artisan migrate --seed
 ```
+
+# Schema
+
+The user stories and database schema are in [shema.md](schema.md).
