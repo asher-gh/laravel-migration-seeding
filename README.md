@@ -11,7 +11,8 @@
 
 1. Make sure `composer` and `php` are installed and included in `PATH`.
 
-2. Copy the `.env.example` to `.env` and change the database configuration as per your system.
+2. Copy the `.env.example` to `.env` and change the database configuration as
+   per your system.
 
 ```bash
 cp ./env.example ./env
@@ -30,20 +31,29 @@ psql movies_app
 composer install
 ```
 
-5. Use `artisan` to migrate and seed the database
+5. Use `artisan` to migrate and seed the database. Use `php artisan` instead of `./artisan` on windows.
 
 Unix
+
 ```bash
 chmod +x ./artisan
 ./artisan migrate --seed
 ```
 
 Windows
+
 ```cmd
 php .\artisan migrate --seed
 ```
 
-6. Serve the application. Go to `http://127.0.0.1:8000/movies` to test the application.
+6. Generate application key
+
+```bash
+./artisan key:generate
+```
+
+7. Serve the application. Go to `http://127.0.0.1:8000/movies` to test the
+   application.
 
 ```sh
 ./artisan serve
