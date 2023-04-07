@@ -17,17 +17,9 @@ class MovieSeeder extends Seeder
     {
         $directors = Director::all();
 
-        /**
-         * Generating director_id this way is much faster 
-         * than using the factory.
-         */
-        Movie::factory(1000)->state(
-            new Sequence(
-                // TODO: if it breaks add Sequence $sequence
-                fn () => [ 'director_id' => $directors->random()->id,
-                ],
-            )
+        // sequence method invokes the state method internally
+        Movie::factory(1000)->sequence(
+            [fn () => [ 'director_id' => $directors->random()->id ]]
         )->create();
-        //
     }
 }
