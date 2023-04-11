@@ -28,9 +28,12 @@ class CollectionController extends Controller
 
     public function addMovie(AddMovieToCollectionRequest $request, Collection $collection)
     {
+        $collection->movies()->attach(
+            $request->validated('movie_id')
+        );
 
-        return [$request, $collection];
-
+        // bounce the user to the page containing details for the given collection
+        return redirect()->route('collections.show', $collection);
     }
 
     /**
@@ -48,7 +51,9 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        //
+        $collection->load('movies');
+
+        return $collection;
     }
 
     /**

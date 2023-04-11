@@ -18,4 +18,10 @@ class Collection extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // defining a relationship function that links this collection, to the movies associated with it
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class);
+    }
 }

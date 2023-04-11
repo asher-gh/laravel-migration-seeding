@@ -13,7 +13,7 @@ class Movie extends Model
     use HasFactory;
 
     public function director(): BelongsTo
-    {
+    {#
         return $this->belongsTo(Director::class);
     }
 
@@ -21,5 +21,10 @@ class Movie extends Model
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
+    }
+
+    public function collections()
+    {
+        return $this->belongsToMany(Collection::class);
     }
 }

@@ -27,7 +27,9 @@ Route::middleware('auth')->group(
     function () {
         Route::resource('collections', CollectionController::class);
         // Route::resource('', CollectionController::class);
-        Route::post('collections/{collection}/movies', [CollectionController::class, '']);
+        
+        Route::post('collections/{collection}/movies', [CollectionController::class, 'addMovie'])
+            ->name('collections.movies.store');
 
     }
 );
