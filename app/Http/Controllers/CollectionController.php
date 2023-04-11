@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCollectionRequest;
+use App\Http\Requests\AddMovieToCollectionRequest;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,13 +26,20 @@ class CollectionController extends Controller
         return view('collections.create');
     }
 
+    public function addMovie(AddMovieToCollectionRequest $request, Collection $collection)
+    {
+
+        return [$request, $collection];
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCollectionRequest $request)
     {
         // return Auth::user();
-        return $params = $request->validated();
+        $params = $request->validated();
         return Auth::user()->collections()->create($params);
     }
 

@@ -22,24 +22,23 @@
     @foreach ($movies as $movie)
         <div>
             <li>{{ $movie->name }}</li>
-            
+
             @if(Auth::check())
-                <form action="???" method="???">
-                    <input type="hidden" name="movie_id" value="?">
-                    <select name="collection_id">
-                        <option value="id for collection 1">Collection 1 Name here</option>
-                        <option value="id for collection 2">Collection 2 Name here</option>
-                    </select>
-                    <button>Add to collection</button>
-                </form>
+                @foreach ($collections as $collection)
+                    <form action="{{ route('collections.movies.store', $collection) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                        <button>Add to {{ $collection->name }} collection</button>
+                    </form>
+                @endforeach
             @endif
 
             <li>
-                Directed by: {{ $movie->director->name }}, 
+                Directed by: {{ $movie->director->name }},
                 who directed {{ $movie->director->movies->count() }} movies
             </li>
             <li>
-                Genres: 
+                Genres:
                 @foreach($movie->genres as $genre)
                     {{ $genre->name }},
                 @endforeach

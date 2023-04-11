@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -12,21 +13,24 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        if ($q = $request->input('q'))
+        if ($q = $request->input('q')) {
             $movies = Movie::where('title', 'like', "$q%")
                 ->where('created_at', '>', now()->subWeek())
                 ->orderBy('title')
                 ->get();
-        else
+        } else {
             $movies = Movie::limit(10)->get();
+        }
 
 
         $movies->load('director.movies', 'genres');
 
-        
+
         $message = 'Hello there!';
 
-        return view('movies.index', compact('movies', 'message'));
+        $collections = Auth::user()->collections;
+
+        return view('movies.index', compact('movies', 'message', 'collections'));
     }
 
     /**
