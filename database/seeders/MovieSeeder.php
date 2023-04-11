@@ -19,7 +19,7 @@ class MovieSeeder extends Seeder
 
         // sequence method invokes the state method internally
         Movie::factory(1000)->sequence(
-            [fn () => [ 'director_id' => $directors->random()->id ]]
+            fn () => [ 'director_id' => $directors->random()->id ]
         )->create();
     }
 }

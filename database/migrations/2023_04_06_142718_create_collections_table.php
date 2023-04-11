@@ -16,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+
+            // Reminder: Set up the relationship functions
             $table->foreignIdFor(User::class);
         });
     }

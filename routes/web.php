@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\ActorController;
-use App\Http\Controllers\CalculatorController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\MovieController;
-// use App\Http\Controllers\WelcomeController;
-// use Illuminate\Http\Request;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,27 +13,32 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-// Route::get('/', [WelcomeController::class, 'showWelcome'])->name('welcome');
+Route::resource('movies', MovieController::class);
 
-Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
-//
-Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+/**
+ * Routes only available to authenticated users
+ */
+Route::middleware('auth')->group(function () {
 
-// Route to show the calculator view (don't forget to name!)
-Route::get(
-    '/calculator', [CalculatorController::class, 'show']
-)->name('calculator.show');
+    Route::resource('collections', CollectionController::class);
 
-// Nathan is lazy - you should not be!
-// You: To create a controller / action to handle the request
-// hint: php artisan make:controller ???
-Route::post(
-    '/calculator',  [CalculatorController::class, 'calculate'] 
-)->name('calculator.calculate');
+});
 
-Route::resource('actor', ActorController::class);
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

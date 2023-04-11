@@ -18,7 +18,7 @@ class MovieController extends Controller
                 ->orderBy('title')
                 ->get();
         else
-            $movies = Movie::all();
+            $movies = Movie::limit(10)->get();
 
 
         $movies->load('director.movies', 'genres');

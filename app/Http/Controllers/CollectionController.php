@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCollectionRequest;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
@@ -12,7 +14,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        Auth::user()->collections;
     }
 
     /**
@@ -20,15 +22,17 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('collections.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCollectionRequest $request)
     {
-        //
+        // return Auth::user();
+        return $params = $request->validated();
+        return Auth::user()->collections()->create($params);
     }
 
     /**

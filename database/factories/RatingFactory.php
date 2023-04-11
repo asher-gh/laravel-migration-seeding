@@ -17,7 +17,7 @@ class RatingFactory extends Factory
     public function definition(): array
     {
         return [
-            'like' => fake()->boolean() ? 1 : -1
+            'like' => 1 // fake()->boolean() ? 1 : -1
         ];
     }
 }
