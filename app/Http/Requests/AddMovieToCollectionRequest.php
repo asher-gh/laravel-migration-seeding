@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 class AddMovieToCollectionRequest extends FormRequest
 {
@@ -12,12 +12,15 @@ class AddMovieToCollectionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->route('collection')->user->is($this->user());
-
         // this is good usecase for authorize method
         // only authorize users to modify their own collections
-        $collection = $this->route('collection');
-        return $collection->user_id === Auth::id();
+        return $this->route('collection')->user->is($this->user());
+
+        // The following approach is okay, but the above one showcases a unique ]
+        // behaviour of requests from authenticated users
+        // $collection = $this->route('collection');
+        //
+        // return $collection->user_id === Auth::id();
     }
 
     /**
@@ -28,7 +31,7 @@ class AddMovieToCollectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'movie_id' => ['required', 'exists:movies,id'],
         ];
     }
 }

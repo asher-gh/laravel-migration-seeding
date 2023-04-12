@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\AddMovieToCollectionRequest;
+use App\Http\Requests\StoreCollectionRequest;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +28,10 @@ class CollectionController extends Controller
 
     public function addMovie(AddMovieToCollectionRequest $request, Collection $collection)
     {
+        // return [$request, $collection];
+        $collection->movies()->attach($request->validated('movie_id'));
 
-        return [$request, $collection];
-
+        return redirect()->route('collection.show');
     }
 
     /**
@@ -40,6 +41,7 @@ class CollectionController extends Controller
     {
         // return Auth::user();
         $params = $request->validated();
+
         return Auth::user()->collections()->create($params);
     }
 
@@ -48,7 +50,7 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        //
+        return $collection;
     }
 
     /**

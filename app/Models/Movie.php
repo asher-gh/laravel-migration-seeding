@@ -22,4 +22,9 @@ class Movie extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function collections(): BelongsToMany
+    {
+        return $this->belongsToMany(Collection::class);
+    }
 }
