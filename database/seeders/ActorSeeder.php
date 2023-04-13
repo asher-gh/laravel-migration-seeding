@@ -13,6 +13,7 @@ class ActorSeeder extends Seeder
      */
     public function run(): void
     {
+        Actor::truncate();
         Actor::factory(1000)->create();
     }
 }

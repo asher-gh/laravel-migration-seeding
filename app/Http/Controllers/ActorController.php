@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ActorResource;
 use App\Models\Actor;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class ActorController extends Controller
      */
     public function index(Request $request)
     {
-        return Actor::all();
+        $actors = Actor::all();
+
+        return ActorResource::collection($actors);
     }
 
     /**
@@ -44,9 +47,7 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
-        //
-        //
-        return view('actor.show', ['result' => 0]);
+        return new ActorResource($actor);
     }
 
     /**

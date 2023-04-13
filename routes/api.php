@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('actors', [ActorController::class, 'index']);
+Route::get('actors', [ActorController::class, 'index'])->name('actors.index');
+
+Route::get('actors/{actor}', [ActorController::class, 'show'])->name('actors.show');
