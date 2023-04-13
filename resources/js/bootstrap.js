@@ -9,6 +9,12 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+// To easily enable API requests to be auth'd as the user that is currently logged in
+// use Sanctum (see: https://laravel.com/docs/10.x/sanctum#spa-configuration) in order
+// to achieve this
+const csrfToken = document.getElementById('csrf_meta').content;
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

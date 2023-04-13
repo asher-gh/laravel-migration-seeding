@@ -13,7 +13,14 @@ class ActorController extends Controller
      */
     public function index(Request $request)
     {
+        // static - ::
         $actors = Actor::all();
+
+        $actor = Actor::first();
+
+        $actor->update([
+            'name' => 'new name'
+        ]);
 
         return ActorResource::collection($actors);
     }

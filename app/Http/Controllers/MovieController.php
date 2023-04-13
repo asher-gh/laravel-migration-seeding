@@ -31,7 +31,9 @@ class MovieController extends Controller
 
         $message = 'Hello there!';
 
-        $collections = Auth::user()->collections;
+        $collections = Auth::check()
+            ? Auth::user()->collections
+            : collect();
 
         return view('movies.index', compact('movies', 'message', 'collections'));
     }
