@@ -18,6 +18,15 @@ class ActorController extends Controller
         return ActorResource::collection($actors);
     }
 
+    
+    /**
+     * Display the specified resource.
+     */
+    public function show(Actor $actor)
+    {
+        return new ActorResource($actor);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -42,13 +51,6 @@ class ActorController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Actor $actor)
-    {
-        return new ActorResource($actor);
-    }
 
     /**
      * Show the form for editing the specified resource.
