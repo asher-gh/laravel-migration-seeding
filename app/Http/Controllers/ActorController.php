@@ -12,18 +12,7 @@ class ActorController extends Controller
      */
     public function index(Request $request)
     {
-        // echo "<p> this is a test </p>";
-        // return Actor::all();
-        if($name = $request->input('name')) {
-            $actors = Actor::where('name', 'like', "$name%")
-                ->orderBy('name')
-                ->get();
-        } else {
-            $actors = Actor::all();
-        }
-
-        return $actors;
-
+        return Actor::all();
     }
 
     /**

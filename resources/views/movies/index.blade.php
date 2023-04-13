@@ -35,7 +35,7 @@
 
             <li>
                 Directed by: {{ $movie->director->name }},
-                who directed {{ $movie->director->movies->count() }} movies
+                who directed {{ $movie->director->movies_count }} movies
             </li>
             <li>
                 Genres:

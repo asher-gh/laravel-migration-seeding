@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -30,6 +32,13 @@ Route::middleware('auth')->group(
         
         Route::post('collections/{collection}/movies', [CollectionController::class, 'addMovie'])
             ->name('collections.movies.store');
+
+
+        Route::post('movies/{movie}/comments', [MovieController::class, 'storeComment'])
+            ->can('update', 'movie');
+
+        Route::post('directors/{director}/comments', [DirectorController::class, 'storeComment'])
+            ->can('update', 'director');
 
     }
 );

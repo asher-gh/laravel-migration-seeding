@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Movie;
+use App\Services\CommentStorer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,17 +16,18 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         if ($q = $request->input('q')) {
-            $movies = Movie::where('title', 'like', "$q%")
+            $movies = Movie::where('name', 'like', "$q%")
                 ->where('created_at', '>', now()->subWeek())
-                ->orderBy('title')
+                ->orderBy('name')
                 ->get();
         } else {
-            $movies = Movie::limit(10)->get();
+            $movies = Movie::all(); // Movie::with(['director', 'genres'])->orderBy('name')->get();
         }
 
-
-        $movies->load('director.movies', 'genres');
-
+        // Lazy-eager loading
+        $movies->load(['director' => function ($query) {
+            $query->withCount('movies');
+        }, 'genres']);
 
         $message = 'Hello there!';
 
@@ -79,5 +82,12 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
+    }
+
+    public function storeComment(StoreCommentRequest $request, CommentStorer $storer, Movie $movie)
+    {
+        $params = $request->validated();
+
+        return $storer->storeComment($request->user(), $movie, $params['text']);
     }
 }

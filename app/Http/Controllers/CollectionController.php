@@ -28,9 +28,12 @@ class CollectionController extends Controller
 
     public function addMovie(AddMovieToCollectionRequest $request, Collection $collection)
     {
-        $collection->movies()->attach(
-            $request->validated('movie_id')
-        );
+
+        $movieId = $request->validated('movie_id');
+
+        // ensure no duplicates
+        $collection->movies()->detach($movieId);
+        $collection->movies()->attach($movieId);
 
         // bounce the user to the page containing details for the given collection
         return redirect()->route('collections.show', $collection);

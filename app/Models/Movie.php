@@ -23,6 +23,11 @@ class Movie extends Model
         return $this->belongsToMany(Genre::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function collections()
     {
         return $this->belongsToMany(Collection::class);

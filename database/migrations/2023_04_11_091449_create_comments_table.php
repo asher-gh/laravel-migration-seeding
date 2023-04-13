@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('text');
-            $table->foreignIdFor(Movie::class);
+            $table->morphs('commentable');
             $table->foreignIdFor(User::class);
         });
     }

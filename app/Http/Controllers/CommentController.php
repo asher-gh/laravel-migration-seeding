@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCommentRequest;
-use App\Models\Director;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-class DirectorController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +34,7 @@ class DirectorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Director $director)
+    public function show(Comment $comment)
     {
         //
     }
@@ -43,7 +42,7 @@ class DirectorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Director $director)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -51,7 +50,7 @@ class DirectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Director $director)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -59,15 +58,8 @@ class DirectorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Director $director)
+    public function destroy(Comment $comment)
     {
         //
-    }
-
-    public function storeComment(StoreCommentRequest $request, Director $director)
-    {
-        $text = $request->validated('text');
-
-        $request->user()->storeComment($director, $text);
     }
 }

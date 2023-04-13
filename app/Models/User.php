@@ -50,4 +50,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Collection::class);
     }
+
+    public function storeComment($commentable, string $text)
+    {
+        $commentable->comments()->create([
+            'user_id' => $this->id,
+            'text' => $text
+        ]);
+    }
 }
