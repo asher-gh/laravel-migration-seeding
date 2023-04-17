@@ -22,9 +22,9 @@ class CalculatorRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'num1' => [ 'required','integer', 'min:1' ], 
-                'num2' => [ 'required','integer', 'min:1' ], 
-                'operation' => [ 'required' ], 
+            'num1' => [ 'required', 'integer' ], 
+            'num2' => [ 'required',' integer' ], 
+            'operation' => [ 'required' ], 
         ];
     }
 }

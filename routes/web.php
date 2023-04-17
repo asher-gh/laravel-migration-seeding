@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +20,8 @@ use Inertia\Inertia;
 */
 
 Route::resource('movies', MovieController::class);
+
+Route::post('/calculator', [CalculatorController::class, 'calculate'])->name('calculator.calculate');
 
 /**
  * Routes only available to authenticated users
