@@ -19,7 +19,7 @@ class RatingSeeder extends Seeder
         $users = User::all();
         $movies = Movie::all();
 
-        Rating::factory(2000)->state(new Sequence(
+        Rating::factory(100)->state(new Sequence(
             fn (Sequence $sequence) => [
                 'user_id' => $users->random()->id,
                 'movie_id' => $movies->random()->id

@@ -17,7 +17,7 @@ class CollectionSeeder extends Seeder
     {
         $users = User::all();
 
-        Collection::factory(2000)->state(new Sequence(
+        Collection::factory(100)->state(new Sequence(
             fn (Sequence $sequence) => [
                 'user_id' => $users->random()->id,
             ],

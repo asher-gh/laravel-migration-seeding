@@ -13,6 +13,6 @@ class DirectorSeeder extends Seeder
      */
     public function run(): void
     {
-        Director::factory(2000)->create();
+        Director::factory(200)->create();
     }
 }
