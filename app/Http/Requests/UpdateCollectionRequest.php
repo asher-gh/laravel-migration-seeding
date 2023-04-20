@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCollectionRequest extends FormRequest
 {
+
     /**
      * Get the validation rules that apply to the request.
      *

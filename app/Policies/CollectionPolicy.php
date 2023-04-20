@@ -43,7 +43,11 @@ class CollectionPolicy
      */
     public function update(User $user, Collection $collection): bool
     {
-        return $collection->user->is($user);
+        $belongsToUser = $collection->user->is($user);
+
+        $hasPermission = $user->can('collections.update');
+
+        return $belongsToUser || $hasPermission;
     }
 
 

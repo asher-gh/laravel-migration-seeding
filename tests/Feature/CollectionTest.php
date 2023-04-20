@@ -76,4 +76,20 @@ class CollectionTest extends TestCase
             'name' => 'funny name @!"'
         ])->assertUnprocessable();
     }
+
+    public function test_admins_can_update_collections()
+    {
+        $admin = User::factory()->create();
+        
+        $this->actingAs($admin)->putJson(route('collections.update', $this->collection), [
+            'name' => 'new name'
+        ])->assertForbidden();
+
+        $admin->assignRole('admin');
+
+        $this->actingAs($admin)->putJson(route('collections.update', $this->collection), [
+            'name' => 'new name'
+        ])->assertOk();
+
+    }
 }
