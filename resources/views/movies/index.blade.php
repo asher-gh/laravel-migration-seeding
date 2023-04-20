@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     <h1>
@@ -18,6 +19,20 @@
     <h2>
         {{ $message }}
     </h2>
+
+    @if( Auth::user()->can('create', App\Models\Collection::class) )
+        <h3>
+            <a href="{{ route('collections.create') }}">Create a new collection</a>
+        </h3>
+    @endif
+
+    @can('create', App\Models\Collection::class)
+        <h3>
+            <a href="{{ route('collections.create') }}">Create a new collection</a>
+        </h3>
+    @endcan
+        
+    @endcannot
 
     @foreach ($movies as $movie)
         <div>

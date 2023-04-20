@@ -4,7 +4,9 @@ use App\Http\Controllers\CalculatorController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Collection;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -21,6 +23,12 @@ use Inertia\Inertia;
 
 Route::resource('movies', MovieController::class);
 
+Route::get('/api_token', function (Request $request) {
+
+    return $request->user()->createToken('mobile')->plainTextToken;
+
+});
+
 Route::post('/calculator', [CalculatorController::class, 'calculate'])->name('calculator.calculate');
 
 /**
@@ -29,10 +37,14 @@ Route::post('/calculator', [CalculatorController::class, 'calculate'])->name('ca
 Route::middleware('auth')->group(
     function () {
         Route::resource('collections', CollectionController::class);
-        // Route::resource('', CollectionController::class);
         
         Route::post('collections/{collection}/movies', [CollectionController::class, 'addMovie'])
             ->name('collections.movies.store');
+
+
+        Route::get('somereport/{collection}', [CollectionController::class, 'getReport'])
+            ->can('update', 'collection')
+            ->name('collections.report');
 
     }
 );

@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\AddMovieToCollectionRequest;
+use App\Http\Requests\UpdateCollectionRequest;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Collection::class, 'collection');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        Auth::user()->collections;
+        return Auth::user()->collections;
     }
 
     /**
@@ -43,7 +53,8 @@ class CollectionController extends Controller
     {
         // return Auth::user();
         $params = $request->validated();
-        return Auth::user()->collections()->create($params);
+        Auth::user()->collections()->create($params);
+        return redirect()->route('collections.index');
     }
 
     /**
@@ -67,9 +78,11 @@ class CollectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collection $collection)
+    public function update(UpdateCollectionRequest $request, Collection $collection)
     {
-        //
+        $params = $request->validated();
+
+        $collection->update($params);
     }
 
     /**
